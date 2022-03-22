@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--开启下划线映射驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启内嵌关联对象的懒加载(使用时再加载) -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 开启内嵌关联对象的轻度懒加载(只要外部对象的任一方法被调用, 就完全加载所有内嵌的关联对象) -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <!-- 将null值映射为Jdbc类型的NULL, 而不是Other -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <!-- 加载所有映射文件中配置的全局缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 打印SQL语句到控制台 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--开启类型别名-->
+    <typeAliases>
+        <package name="com.chen.crud"/>
+    </typeAliases>
+
+</configuration>

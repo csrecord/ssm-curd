@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 数据库驱动包(如果classpath下已有则可以忽略) -->
+    <!--<classPathEntry location="D:/SQL/mysql-8.0.22-winx64/mysql-connector-java-8.0.15.jar"/>-->
+
+    <!--MBG上下文配置
+        id: 上下文id
+        TODO: 选择合适的targetRuntime
+        targetRuntime: 指定要按照哪种形式去生成Java代码, 默认值Mybatis3
+                        Mybatis3 生成基本的增删改查, 还会生成"xxxByExample"方法的动态SQL
+                        MyBatis3Simple 只生成基本的增删改查
+        defaultModelType: 要如何生成实体类, 默认值conditional
+                          conditional 和hierarchical类似, 只是当主键列只有一个时, 不会生成只包含主键的实体类
+                          flat 只为每张表生成一个实体类(推荐使用)
+                          hierarchical 生成三个实体类, 一个只包含主键, 一个只包含BLOB字段, 一个包含其他剩余字段
+    -->
+    <context id="MyGenerator" targetRuntime="Mybatis3" defaultModelType="flat">
+        <!-- 自动给关键字添加分隔符 -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <!-- 前缀分隔符 -->
+        <property name="beginningDelimiter" value="`"/>
+        <!-- 后置分隔符 -->
+        <property name="endingDelimiter" value="`"/>
+        <!-- Java文件编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- Java文件格式 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- XML文件格式 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!-- TODO: 根据个人需求选择合适的插件 -->
+        <!-- 生成xxxMapper.xml时覆盖原文件, 而不是追加 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!-- 生成Equals和HashCode方法 -->
+        <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>-->
+        <!-- 实现Serializable接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 生成toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!--生成注释-->
+        <commentGenerator>
+            <!-- 完全禁止生成注释 -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 禁止生成时间戳注释 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 时间戳格式, 要符合SimpleDateFormat -->
+            <!--<property name="dateFormat" value="yyyy/MM/dd HH:mm:ss"/>-->
+            <!-- 注释是否包含对应表名或列名信息 -->
+            <!--<property name="addRemarkComments" value="true"/>-->
+        </commentGenerator>
+
+        <!-- TODO: 配置MySQL数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/ssm_crud?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8"
+                        userId="root"
+                        password="123456">
+            <!-- 避免MySQL多次生成SQL映射文件 -->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <!-- 设置JDBC类型和Java类型的映射 -->
+        <javaTypeResolver>
+            <!--  true：使用BigDecimal对应DECIMAL和NUMERIC数据类型
+                  false：默认值
+                    scale>0;length>18：使用BigDecimal;
+                    scale=0;length[10,18]：使用Long；
+                    scale=0;length[5,9]：使用Integer；
+                    scale=0;length<5：使用Short -->
+            <property name="forceBigDecimals" value="false"/>
+            <!-- 是否应该符合JSR-310日期类型, 还是说直接将日期映射成java.util.Date -->
+            <property name="useJSR310Types" value="false"/>
+        </javaTypeResolver>
+
+        <!-- TODO: 生成Model实体类
+            targetProject: 项目源码根目录
+            targetPackage: 生成的实体类放在哪个包里
+        -->
+        <javaModelGenerator targetPackage="com.chen.crud.pojo" targetProject="src/main/java">
+            <!-- 是否直接将实体类放在targetPackage包中 -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否生成有参构造函数
+                注意, 当设置为true, 自动生成的resultMap也会采用构造函数来创建POJO, 而不是setter
+             -->
+            <property name="constructorBased" value="false"/>
+            <!-- 是否删除查询结果的前后空格(体现在实体类的set方法中) -->
+            <property name="trimStrings" value="false"/>
+            <!-- 生成的实体类属性是否不可变 -->
+            <property name="immutable" value="false"/>
+            <!-- 设置所有实体类的基类 -->
+            <!--<property name="rootClass" value=""/>-->
+        </javaModelGenerator>
+
+        <!-- TODO: 生成SQL映射文件 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- TODO: 生成映射器接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.chen.crud.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- TODO: 要逆向分析的表, 多张表需要配置多个table标签
+             tableName: 表名
+             domainObjectName: 要生成的实体类名称, 会影响【实体类/映射器接口/映射文件】的名称
+             可选属性:
+                alias: 设置【表别名】和【列别名前缀】
+                mapperName: 设置【映射器接口】和【映射文件】的名称
+                enableXxx: 是否要为映射器生成Xxx方法, 默认true
+        -->
+        <table tableName="tb_dept" domainObjectName="Department">
+            <!-- 插入数据之后获取自增主键值 -->
+            <generatedKey column="dept_id" identity="true" type="post" sqlStatement="MySql"/>
+            <!-- 重写列和属性的映射 -->
+            <!--<columnOverride property="propertyName" column="LONG_VARCHAR_FIELD" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+            <!-- 忽略某些列的映射 -->
+            <!--<ignoreColumn column=""/>-->
+        </table>
+
+        <table tableName="tb_emp" domainObjectName="Employee">
+            <!-- 插入数据之后获取自增主键值 -->
+            <generatedKey column="emp_id" identity="true" type="post" sqlStatement="MySql"/>
+            <!-- 重写列和属性的映射 -->
+            <columnOverride property="gender" column="gender" javaType="java.lang.Integer"
+                            jdbcType="TINYINT"/>
+        </table>
+
+    </context>
+
+</generatorConfiguration>

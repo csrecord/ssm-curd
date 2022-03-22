@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!--1.配置扫描控制器-->
+    <!--只扫描配置的控制器,需要禁用掉过滤器默认规则-->
+    <context:component-scan base-package="com.chen.crud" use-default-filters="false">
+        <!--1.配置扫描控制器-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--2.配置试图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--2.1配置视图解析器路径  prefix路径前缀,suffix路径后缀-->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--3.添加两个标准配置-->
+    <!--Spring MVC不能处理的请求交由tomcat-->
+    <mvc:default-servlet-handler/>
+    <!--MVC注解驱动,支持一些 Spring MVC更高级的功能,支持基于注解的JSR303校验, 处理Ajax请求, 映射动态请求等-->
+    <mvc:annotation-driven validator="validator" conversion-service="conversionService"/>
+
+
+    <!-- 4.配置校验器 -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <!-- 使用hibernate校验器 -->
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
+
+    <!--5.配置指定的ConversionService, 用于类型转换和数据格式化-->
+    <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+    <!--    &lt;!&ndash;注册自定义的类型转换器&ndash;&gt;-->
+    <!--    <property name="converters">-->
+    <!--        <set>-->
+    <!--            <bean class="com.chen.crud.converter.StringToIntegerListConverter"/>-->
+    <!--        </set>-->
+    <!--    </property>-->
+    <!--</bean>-->
+
+</beans>

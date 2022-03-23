@@ -153,7 +153,6 @@
           <include>**/*.properties</include>
           <include>**/*.xml</include>
         </includes>
-        <filtering>false</filtering>
       </resource>
       <resource>
         <directory>src/main/resources</directory>
@@ -161,7 +160,6 @@
           <include>**/*.properties</include>
           <include>**/*.xml</include>
         </includes>
-        <filtering>false</filtering>
       </resource>
     </resources>
     <plugins>
@@ -197,7 +195,7 @@
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
+            <version>5.1.47</version>
           </dependency>
         </dependencies>
       </plugin>

@@ -1,5 +1,7 @@
 # SSM-CRUD
 
+**clone项目后请import选择Maven项目打开，不需要选择直接打开**
+
 整合SSM框架实现基本增删改查功能
 
 功能点：

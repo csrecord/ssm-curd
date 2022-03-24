@@ -1,8 +1,4 @@
-<%--
-  User: OneIce
-  Date: 2021/3/21
-  Time: 17:12
---%>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!-- 设置页面编码 -->
 <meta charset="utf-8">

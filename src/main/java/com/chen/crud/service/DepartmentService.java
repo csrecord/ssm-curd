@@ -6,11 +6,6 @@ import com.chen.crud.dao.DepartmentMapperExt;
 
 import java.util.List;
 
-/**
- * 处理和部门相关的业务逻辑
- * @author OneIce
- * @since 2021/3/25 15:40
- */
 
 @Service
 public class DepartmentService {

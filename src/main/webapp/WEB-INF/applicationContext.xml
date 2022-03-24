@@ -115,7 +115,4 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="servicePt"/>
     </aop:config>
 
-
-
-
 </beans>

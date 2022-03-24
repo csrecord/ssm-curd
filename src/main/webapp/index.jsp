@@ -1,4 +1,9 @@
-
+<%--suppress ALL --%>
+<%--
+  User: OneIce
+  Date: 2021/3/21
+  Time: 17:12
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -30,7 +35,7 @@
                     <div class="form-group">
                         <label for="add_emp_name_input" class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-10 has-feedback">
-                            <input type="text" class="form-control" id="add_emp_name_input" placeholder="OneIce"
+                            <input type="text" class="form-control" id="add_emp_name_input" placeholder="chensheng"
                                    name="empName">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <%-- 显示错误信息 --%>
@@ -41,7 +46,7 @@
                         <label for="add_emp_email_input" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10 has-feedback">
                             <input type="email" class="form-control has-feedback" id="add_emp_email_input"
-                                   placeholder="oneice@foxmail.com"
+                                   placeholder="chensheng@gmail.com"
                                    name="email">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <%-- 显示错误消息 --%>
@@ -317,7 +322,7 @@
             data: {"page": pageNum, "rows": rows},
             dataType: "json",
             success: function (result) {
-                //构建员工列表
+                //解析构建员工列表
                 buildEmpsTable(result.dataMap.pageInfo.list)
                 //构建分页基本信息
                 buildPageInfo(result.dataMap.pageInfo)
@@ -327,7 +332,7 @@
         })
     }
 
-    //构建员工表格
+    //解析构建员工表格
     function buildEmpsTable(list) {
         //清空原表格数据
         $("#emp_table tbody").empty()
@@ -678,7 +683,13 @@
                     if (result.errorCode.value == "00000") { //删除成功, 刷新页面
                         toPage(pageNum, rows)
                     } else { //删除失败, 显示错误信息
-                        //懒得写了...
+                        // if (result.dataMap.empName) { //带有empName这个错误
+                        //     showValidateMsg("#add_emp_name_input", "error", result.dataMap.empName);
+                        // }
+                        // if (result.dataMap.email) { //带有email这个错误
+                        //     showValidateMsg("#add_emp_email_input", "error", result.dataMap.email);
+                        // }
+                        // ...
                     }
                 }
             })

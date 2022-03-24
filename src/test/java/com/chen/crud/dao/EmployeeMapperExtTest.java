@@ -12,11 +12,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-/**
- * @Description
- * @Author OneIce
- * @Date 2021/3/21 14:31
- */
+
 @SpringJUnitConfig(locations = "file:src/main/webapp/WEB-INF/applicationContext.xml")
 class EmployeeMapperExtTest {
     @Autowired
@@ -62,10 +58,10 @@ class EmployeeMapperExtTest {
     void batchInsert() {
         EmployeeMapperExt mapperForBatch = sqlSessionTemplate.getMapper(EmployeeMapperExt.class);
         Random random = new Random();
-        for (int i = 0; i < 300; i++) {
+        for (int i = 1; i < 200; i++) {
             String name = "chensheng" + UUID.randomUUID().toString().substring(0, 3) + i;
             int gender = random.nextInt(2) + 1;
-            String email = name + "@qq.com";
+            String email = name + "@gmail.com";
             int dId =  random.nextInt(3) + 1;
             mapperForBatch.insertSelective(new Employee(null, name, gender, email, dId));
             //mapperForBatch.deleteByPrimaryKey(i);

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       https://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/mvc
-       https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc
+                           https://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/context
+                           https://www.springframework.org/schema/context/spring-context.xsd">
 
-
-    <!--1.配置扫描控制器-->
+<!--1.配置扫描控制器-->
     <!--只扫描配置的控制器,需要禁用掉过滤器默认规则-->
     <context:component-scan base-package="com.chen.crud" use-default-filters="false">
         <!--1.配置扫描控制器-->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
     <!--2.配置试图解析器-->
@@ -38,14 +40,17 @@
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
 
+    <!--
+    ajax提交表单，使用conversionService将客户端提交的字符串转换为Integer，controller回传对象，页面显示信息
+    需要在annotation-driven中引用转换器
+    -->
     <!--5.配置指定的ConversionService, 用于类型转换和数据格式化-->
-    <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-    <!--    &lt;!&ndash;注册自定义的类型转换器&ndash;&gt;-->
-    <!--    <property name="converters">-->
-    <!--        <set>-->
-    <!--            <bean class="com.chen.crud.converter.StringToIntegerListConverter"/>-->
-    <!--        </set>-->
-    <!--    </property>-->
-    <!--</bean>-->
-
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!--注册自定义的类型转换器-->
+        <property name="converters">
+            <set>
+                <bean class="com.chen.crud.converter.StringToIntegerListConverter"/>
+            </set>
+        </property>
+    </bean>
 </beans>
